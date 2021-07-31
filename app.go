@@ -9,12 +9,11 @@ import (
 )
 
 // TODO:
-//  - Probar paralelismo
 //  - Subir a Heroku
-//  - Falta servicio de /stats
-func main()  {
+func main() {
 	database.NewClient()
 	defer database.Disconnect()
 	http.HandleFunc("/mutant", controller.MutantHandler)
+	http.HandleFunc("/stats", controller.StatsHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -2,28 +2,27 @@ package database
 
 import (
 	"context"
-	"fmt"
-	"go.mongodb.org/mongo-driver/bson"
 	"log"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/JuanigTorres/xmen-finder/model/documents"
 )
 
-const DB  = "xmen"
+const DB = "xmen"
 const URI = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000"
 
-var COLLECTIONS_CONFIG = []func(ctx context.Context) {
+var COLLECTIONS_CONFIG = []func(ctx context.Context){
 	createDNAsCollection,
 }
 
 var client *mongo.Client
 
 func connect() {
-	ctx, cancel := context.WithTimeout(context.Background(), 60 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
 	err := client.Connect(ctx)
 	if err != nil {
@@ -32,7 +31,7 @@ func connect() {
 }
 
 func Disconnect() {
-	ctx, cancel := context.WithTimeout(context.Background(), 60 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
 	err := client.Disconnect(ctx)
 	if err != nil {
@@ -50,7 +49,7 @@ func NewClient() {
 		log.Fatal(err)
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 60 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
 
 	connect()
@@ -63,17 +62,25 @@ func NewClient() {
 
 func SaveDNA(document *documents.DNADocument) {
 	log.Println("Saving document ::", document)
-	ctx, cancel := context.WithTimeout(context.Background(), 10 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	insert, err := client.Database(DB).Collection("dnas").InsertOne(ctx, document.AsBson())
 	if err != nil {
 		log.Println("WARN ::", err)
 	}
-	fmt.Println(insert)
+	log.Println("Saved as ::", insert)
 }
 
-func Stats() {
-
+func NumberOfDNAs(mutant bool) int64 {
+	log.Printf("Searching number of dnas where [mutant = %v]\n", mutant)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	count, err := client.Database(DB).Collection("dnas").CountDocuments(ctx, bson.D{{"mutant", mutant}})
+	if err != nil {
+		log.Println("WARN ::", err)
+	}
+	log.Println("Founded ::", count)
+	return count
 }
 
 func createDNAsCollection(ctx context.Context) {
@@ -85,7 +92,7 @@ func createDNAsCollection(ctx context.Context) {
 	}
 
 	model := mongo.IndexModel{
-		Keys: bson.M {
+		Keys: bson.M{
 			"dna": 1,
 		},
 		Options: options.Index().SetUnique(true),
