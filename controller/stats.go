@@ -2,9 +2,10 @@ package controller
 
 import (
 	"encoding/json"
-	"github.com/JuanigTorres/xmen-finder/service"
 	"log"
 	"net/http"
+
+	"github.com/JuanigTorres/xmen-finder/service"
 )
 
 func StatsHandler(response http.ResponseWriter, request *http.Request) {

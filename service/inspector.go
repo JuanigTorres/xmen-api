@@ -2,14 +2,14 @@ package service
 
 import (
 	"fmt"
-	"github.com/JuanigTorres/xmen-finder/database"
-	"github.com/JuanigTorres/xmen-finder/model/documents"
 	"log"
 	"strings"
 	"unicode"
 
-	exception "github.com/JuanigTorres/xmen-finder/exception"
-	matrixutils "github.com/JuanigTorres/xmen-finder/math/matrix"
+	"github.com/JuanigTorres/xmen-finder/database"
+	"github.com/JuanigTorres/xmen-finder/exception"
+	mutils "github.com/JuanigTorres/xmen-finder/math/matrix"
+	"github.com/JuanigTorres/xmen-finder/model/documents"
 )
 
 const NITROGEN_BASE = "ATCG"
@@ -38,8 +38,8 @@ func IsMutant(dna []string) (bool, error) {
 		LOWER_DIAGONAL:  {},
 	}
 
-	dimensions[HIGHER_DIAGONAL] = matrix.Diagonals(matrixutils.UP)
-	dimensions[LOWER_DIAGONAL] = matrix.Diagonals(matrixutils.DOWN)
+	dimensions[HIGHER_DIAGONAL] = matrix.Diagonals(mutils.UP)
+	dimensions[LOWER_DIAGONAL] = matrix.Diagonals(mutils.DOWN)
 	for i := range matrix.Values {
 		dimensions[HORIZONTAL] = append(dimensions[HORIZONTAL], matrix.Row(i))
 		dimensions[VERTICAL] = append(dimensions[VERTICAL], matrix.Column(i))
@@ -59,14 +59,14 @@ func IsMutant(dna []string) (bool, error) {
 	return mutant, nil
 }
 
-func validateAndFillAsMatrix(dna []string) (matrix *matrixutils.Matrix, err error) {
+func validateAndFillAsMatrix(dna []string) (matrix *mutils.Matrix, err error) {
 	size := len(dna)
 
 	if size <= 0 {
 		return nil, exception.MatrixError("The size must be higher than zero.")
 	}
 
-	matrix = matrixutils.NewSquareMatrix(size)
+	matrix = mutils.NewSquareMatrix(size)
 	for i, chain := range dna {
 		if err = isValidChain(size, chain); err != nil {
 			return nil, err

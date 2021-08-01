@@ -2,7 +2,9 @@ package database
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -12,8 +14,11 @@ import (
 	"github.com/JuanigTorres/xmen-finder/model/documents"
 )
 
-const DB = "xmen"
-const URI = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000"
+const (
+	DB   = "xmen"
+	USER = "xmen-api"
+	HOST = "xmendb.5fwxe.mongodb.net"
+)
 
 var COLLECTIONS_CONFIG = []func(ctx context.Context){
 	createDNAsCollection,
@@ -42,7 +47,17 @@ func Disconnect() {
 func NewClient() {
 	var err error
 
-	opts := options.Client().ApplyURI(URI)
+	pass, exist := os.LookupEnv("MONGO_PASS")
+
+	if !exist {
+		log.Fatal("MONGO_PASS variable is empty")
+	}
+
+	url := fmt.Sprintf("mongodb+srv://%v:%v@%v/%v?retryWrites=true&w=majority", USER, pass, HOST, DB)
+
+	log.Println("Connecting to ::", url)
+
+	opts := options.Client().ApplyURI(url)
 	client, err = mongo.NewClient(opts)
 
 	if err != nil {

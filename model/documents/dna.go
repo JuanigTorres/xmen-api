@@ -1,25 +1,26 @@
 package documents
 
 import (
-	"go.mongodb.org/mongo-driver/bson"
 	"strings"
+
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type DNADocument struct {
-	DNA  string // A guion separated list
+	DNA    string // A guion separated list
 	Mutant bool
 }
 
 func NewDNADocument(dna []string, isMutant bool) *DNADocument {
 	return &DNADocument{
-		DNA: strings.Join(dna, "-"),
+		DNA:    strings.Join(dna, "-"),
 		Mutant: isMutant,
 	}
 }
 
 func (document *DNADocument) AsBson() *bson.D {
-	return &bson.D {
-		{ "dna", document.DNA },
-		{ "mutant", document.Mutant },
+	return &bson.D{
+		{"dna", document.DNA},
+		{"mutant", document.Mutant},
 	}
 }

@@ -1,15 +1,17 @@
 package main
 
 import (
-	"github.com/JuanigTorres/xmen-finder/database"
 	"log"
 	"net/http"
 
 	"github.com/JuanigTorres/xmen-finder/controller"
+	"github.com/JuanigTorres/xmen-finder/database"
 )
 
 // TODO:
-//  - Subir a Heroku
+//  - Comentar
+//  - Agregar README.md
+//  - Rename go.mod
 func main() {
 	database.NewClient()
 	defer database.Disconnect()
