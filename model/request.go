@@ -7,9 +7,9 @@ type XmenRequest struct {
 }
 
 type StatsRequest struct {
-	CountMutantDNA int64
-	CountHumanDNA  int64
-	Ratio          float32
+	CountMutantDNA int64   `json:"count_mutant_dna"`
+	CountHumanDNA  int64   `json:"count_human_dna"`
+	Ratio          float32 `json:"ratio"`
 }
 
 func StatsRequestNew(mutants, humans int64) *StatsRequest {

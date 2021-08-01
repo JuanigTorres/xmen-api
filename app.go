@@ -9,8 +9,6 @@ import (
 	"github.com/JuanigTorres/xmen-api/database"
 )
 
-// TODO:
-//  - Agregar README.md
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
