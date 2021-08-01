@@ -6,10 +6,8 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/JuanigTorres/xmen-api/database"
 	"github.com/JuanigTorres/xmen-api/exception"
 	mutils "github.com/JuanigTorres/xmen-api/math/matrix"
-	"github.com/JuanigTorres/xmen-api/model/documents"
 )
 
 const NITROGEN_BASE = "ATCG"
@@ -55,7 +53,6 @@ func IsMutant(dna []string) (bool, error) {
 	}
 
 	mutant := founded > 1
-	database.SaveDNA(documents.NewDNADocument(dna, mutant))
 	return mutant, nil
 }
 

@@ -2,6 +2,8 @@ package controller
 
 import (
 	"encoding/json"
+	"github.com/JuanigTorres/xmen-api/database"
+	"github.com/JuanigTorres/xmen-api/model/documents"
 	"net/http"
 
 	"github.com/JuanigTorres/xmen-api/model"
@@ -15,6 +17,7 @@ func MutantHandler(response http.ResponseWriter, request *http.Request) {
 		var data model.XmenRequest
 		if err := json.NewDecoder(request.Body).Decode(&data); err == nil {
 			if isMutant, ex := service.IsMutant(data.DNA); ex == nil && isMutant {
+				database.SaveDNA(documents.NewDNADocument(data.DNA, isMutant))
 				status = http.StatusOK
 			}
 		}
