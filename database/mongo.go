@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/JuanigTorres/xmen-finder/model/documents"
+	"github.com/JuanigTorres/xmen-api/model/documents"
 )
 
 const (
@@ -44,6 +44,7 @@ func Disconnect() {
 	}
 }
 
+// NewClient Creates a connection to the Mongodb Client
 func NewClient() {
 	var err error
 
@@ -98,6 +99,7 @@ func NumberOfDNAs(mutant bool) int64 {
 	return count
 }
 
+// createDNAsCollection Create and configure a collection from DNAs into the mongodb.
 func createDNAsCollection(ctx context.Context) {
 	name := "dnas"
 	log.Println("Create collection with name ::", name)

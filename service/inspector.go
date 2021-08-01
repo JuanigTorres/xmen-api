@@ -6,10 +6,10 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/JuanigTorres/xmen-finder/database"
-	"github.com/JuanigTorres/xmen-finder/exception"
-	mutils "github.com/JuanigTorres/xmen-finder/math/matrix"
-	"github.com/JuanigTorres/xmen-finder/model/documents"
+	"github.com/JuanigTorres/xmen-api/database"
+	"github.com/JuanigTorres/xmen-api/exception"
+	mutils "github.com/JuanigTorres/xmen-api/math/matrix"
+	"github.com/JuanigTorres/xmen-api/model/documents"
 )
 
 const NITROGEN_BASE = "ATCG"
@@ -59,6 +59,8 @@ func IsMutant(dna []string) (bool, error) {
 	return mutant, nil
 }
 
+// validateAndFillAsMatrix Validates the dna and returns a Matrix to operate.
+// Otherwise returns a MatrixError.
 func validateAndFillAsMatrix(dna []string) (matrix *mutils.Matrix, err error) {
 	size := len(dna)
 

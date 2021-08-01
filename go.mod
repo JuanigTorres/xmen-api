@@ -1,4 +1,4 @@
-module github.com/JuanigTorres/xmen-finder
+module github.com/JuanigTorres/xmen-api
 
 go 1.16
 

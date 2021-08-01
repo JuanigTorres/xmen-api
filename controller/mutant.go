@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/JuanigTorres/xmen-finder/model"
-	"github.com/JuanigTorres/xmen-finder/service"
+	"github.com/JuanigTorres/xmen-api/model"
+	"github.com/JuanigTorres/xmen-api/service"
 )
 
 func MutantHandler(response http.ResponseWriter, request *http.Request) {

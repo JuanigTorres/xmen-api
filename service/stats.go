@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/JuanigTorres/xmen-finder/database"
-	"github.com/JuanigTorres/xmen-finder/model"
+	"github.com/JuanigTorres/xmen-api/database"
+	"github.com/JuanigTorres/xmen-api/model"
 )
 
 func GetStats() *model.StatsRequest {

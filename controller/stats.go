@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/JuanigTorres/xmen-finder/service"
+	"github.com/JuanigTorres/xmen-api/service"
 )
 
 func StatsHandler(response http.ResponseWriter, request *http.Request) {

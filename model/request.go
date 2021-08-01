@@ -1,5 +1,7 @@
 package model
 
+import "github.com/JuanigTorres/xmen-api/math/utils"
+
 type XmenRequest struct {
 	DNA []string
 }
@@ -14,6 +16,6 @@ func StatsRequestNew(mutants, humans int64) *StatsRequest {
 	return &StatsRequest{
 		CountMutantDNA: mutants,
 		CountHumanDNA:  humans,
-		Ratio:          float32(mutants) / float32(humans),
+		Ratio:          utils.SecureDiv(mutants, humans),
 	}
 }

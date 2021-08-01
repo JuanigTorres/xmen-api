@@ -1,6 +1,6 @@
 package matrix
 
-import "github.com/JuanigTorres/xmen-finder/math/utils"
+import "github.com/JuanigTorres/xmen-api/math/utils"
 
 type Direction int
 
@@ -30,20 +30,29 @@ func (matrix *Matrix) Row(r int) []string {
 func (matrix *Matrix) Column(c int) []string {
 	var column []string
 	for i := range matrix.Values {
-		column  = append(column, matrix.Values[i][c])
+		column = append(column, matrix.Values[i][c])
 	}
 	return column
 }
 
+// Diagonals Returns a list of arrays for each diagonal found in the matrix crosswise.
+// The transversal to be applied will depend from the direction passed.
+// For example, for the following 3x3 Matrix
+//
+// 	1 2 3  = UP ===> [[1], [4,2], [7,5,3], [8,6], [9]]
+//	4 5 6
+//	7 8 9  = DOWN => [[3], [2,6], [1,5,9], [4,8], [7]]
 func (matrix Matrix) Diagonals(direction Direction) [][]string {
 	var diags [][]string
 	var fill func(Matrix, int, int, int, int) []string
 
 	switch direction {
-	case UP		: fill = upper
-	case DOWN	: fill = lower
+	case UP:
+		fill = upper
+	case DOWN:
+		fill = lower
 	default:
-		return [][]string {}
+		return [][]string{}
 	}
 
 	size := len(matrix.Values)
@@ -59,9 +68,7 @@ func (matrix Matrix) Diagonals(direction Direction) [][]string {
 func upper(matrix Matrix, size, line, start, count int) []string {
 	var diag []string
 	for j := 0; j < count; j++ {
-		// X is a value that goes from highest to lowest value, in other words, between (len(m), 0]
-		// Y is strictly dependent from 'start' value, therefore, never could be take values where y > start
-		x := utils.Min(size - 1, line) - j
+		x := utils.Min(size-1, line) - j
 		y := start + j
 		diag = append(diag, matrix.Values[x][y])
 	}
@@ -71,10 +78,8 @@ func upper(matrix Matrix, size, line, start, count int) []string {
 func lower(matrix Matrix, size, line, start, count int) []string {
 	var diag []string
 	for j := 0; j < count; j++ {
-		// X is a value that goes from highest to lowest value, in other words, between (len(m), 0]
-		// Y is strictly dependent from 'start' value, therefore, never could be take values where y > start
 		x := start + j
-		y := utils.Max((size - 1) - line, 0) + j
+		y := utils.Max((size-1)-line, 0) + j
 		diag = append(diag, matrix.Values[x][y])
 	}
 	return diag

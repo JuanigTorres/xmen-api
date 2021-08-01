@@ -3,7 +3,7 @@ package service_test
 import (
 	"testing"
 
-	"github.com/JuanigTorres/xmen-finder/service"
+	"github.com/JuanigTorres/xmen-api/service"
 )
 
 var MUTANT_DNA_LIST = [][]string{
