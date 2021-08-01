@@ -1,12 +1,12 @@
-###X-Men API
+## X-Men API
 
 App para detectar ADN mutante a peticion de Magneto
 
-####Dominio
+#### Dominio
 El servicio es hosteado por heroku bajo el dominio
 ```https://xmen-finder.herokuapp.com```
 
-####Servicios
+#### Servicios
 
 `/mutant` - Recibe un body con el adn como parametro. Si es correcto, retornara un status 200. Caso contrario, retornara un status 403
 
@@ -25,7 +25,7 @@ curl --request POST \
 curl --request GET --url http://localhost:8080/stats
 ```
 
-####Testing + Covertura
+#### Testing + Covertura
 
 Para testear el servicio inspector:
 ```bash
@@ -37,7 +37,7 @@ Para correr tests de covertura
 go test ./service -cover
 ```
 
-####JMeter
+#### JMeter
 
 Se agregaron benchmarks realizados con JMeter para ver si soportaba varias peticiones en simultaneo.
 La configuracion se encuentra en `contrib/jmeter`
